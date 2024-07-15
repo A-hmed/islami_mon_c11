@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:islami_c11_mon/model/sura_details_args.dart';
+import 'package:islami_c11_mon/ui/screens/sura_details/sura_details.dart';
 import 'package:islami_c11_mon/ui/utils/app_assets.dart';
 import 'package:islami_c11_mon/ui/utils/app_colors.dart';
 import 'package:islami_c11_mon/ui/utils/app_style.dart';
@@ -64,7 +66,10 @@ class Quran extends StatelessWidget {
                   Expanded(child: buildSurasList()),
                 ],
               ),
-              VerticalDivider(thickness: 3, color: AppColors.primaryColor,)
+              const VerticalDivider(
+                thickness: 3,
+                color: AppColors.primaryColor,
+              )
             ],
           ),
         ),
@@ -74,20 +79,28 @@ class Quran extends StatelessWidget {
 
   Widget buildSurasList() => ListView.builder(
       itemCount: Constants.suraNames.length,
-      itemBuilder: (context, index) => Row(
-            children: [
-              Expanded(
-                  child: Text(
-                Constants.suraNames[index],
-                textAlign: TextAlign.center,
-                style: AppStyle.titlesTextStyle,
-              )),
-              Expanded(
-                  child: Text(
-                Constants.versesNumber[index].toString(),
-                textAlign: TextAlign.center,
-                style: AppStyle.titlesTextStyle,
-              ))
-            ],
+      itemBuilder: (context, index) => InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, SuraDetails.routeName,
+                  arguments: SuraDetailsArgs(
+                      suraName: Constants.suraNames[index],
+                      fileName: "${index + 1}.txt"));
+            },
+            child: Row(
+              children: [
+                Expanded(
+                    child: Text(
+                  Constants.suraNames[index],
+                  textAlign: TextAlign.center,
+                  style: AppStyle.titlesTextStyle,
+                )),
+                Expanded(
+                    child: Text(
+                  Constants.versesNumber[index].toString(),
+                  textAlign: TextAlign.center,
+                  style: AppStyle.titlesTextStyle,
+                ))
+              ],
+            ),
           ));
 }

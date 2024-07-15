@@ -4,9 +4,9 @@ import 'package:islami_c11_mon/ui/screens/home/tabs/quran/quran.dart';
 import 'package:islami_c11_mon/ui/screens/home/tabs/radio/app_radio.dart';
 import 'package:islami_c11_mon/ui/screens/home/tabs/sebha/sebha.dart';
 import 'package:islami_c11_mon/ui/utils/app_assets.dart';
+import 'package:islami_c11_mon/ui/widgets/app_scaffold.dart';
 
 import '../../utils/app_colors.dart';
-import '../../utils/app_style.dart';
 
 
 class Home extends StatefulWidget {
@@ -18,41 +18,35 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int selectedTabIndex = 0;
+  int selectedTabIndex = 1;
   List<Widget> tabs = [Quran(), Ahadeth(), Sebha(), AppRadio()];
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(image: AssetImage(AppAssets.lightBackground))
-      ),
-      child: Scaffold(
-        body: tabs[selectedTabIndex],
-        appBar: AppBar(
-          backgroundColor: AppColors.transparent,
-          elevation: 0,
-          title: const Text("Islami", style: AppStyle.appBarStyle,),
-          centerTitle: true,
-        ),
-        backgroundColor: AppColors.transparent,
-        bottomNavigationBar: Theme(
-          data: ThemeData(canvasColor: AppColors.primaryColor),
-          child: BottomNavigationBar(
-            onTap: (index){
-             selectedTabIndex = index;
-             setState(() {});
-            },
-            currentIndex: selectedTabIndex,
-            selectedItemColor: AppColors.accentColor,
-            selectedIconTheme: IconThemeData(size: 38 ),
-            unselectedIconTheme: IconThemeData(size: 34),
-            items: const [
-              BottomNavigationBarItem(icon: ImageIcon(AssetImage(AppAssets.icQuran)), label: "Quran"),
-              BottomNavigationBarItem(icon: ImageIcon(AssetImage(AppAssets.icAhadeth)), label: "Ahadeth"),
-              BottomNavigationBarItem(icon: ImageIcon(AssetImage(AppAssets.icSebha)), label: "Sebha"),
-              BottomNavigationBarItem(icon: ImageIcon(AssetImage(AppAssets.icRadio)), label: "Radio")
-            ],
-          ),
+    return AppScaffold(
+      appBarTitle: "Islami",
+      body: tabs[selectedTabIndex],
+      bottomNavigationBar: Theme(
+        data: ThemeData(canvasColor: AppColors.primaryColor),
+        child: BottomNavigationBar(
+          onTap: (index) {
+            selectedTabIndex = index;
+            setState(() {});
+          },
+          currentIndex: selectedTabIndex,
+          selectedItemColor: AppColors.accentColor,
+          selectedIconTheme: IconThemeData(size: 38),
+          unselectedIconTheme: IconThemeData(size: 34),
+          items: const [
+            BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage(AppAssets.icQuran)), label: "Quran"),
+            BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage(AppAssets.icAhadeth)),
+                label: "Ahadeth"),
+            BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage(AppAssets.icSebha)), label: "Sebha"),
+            BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage(AppAssets.icRadio)), label: "Radio")
+          ],
         ),
       ),
     );
